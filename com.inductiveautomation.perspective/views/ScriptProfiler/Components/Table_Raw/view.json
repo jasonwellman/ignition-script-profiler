@@ -53,7 +53,8 @@
                         "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\t\u0027Updating in \u0027 + round(millisBetween(now(100),addSeconds({..../Table.custom.query_last_execution},{..../Table.custom.query_polling}))/1000,1) + \u0027 seconds\u0027,\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
                       "type": "expr"
-                    }
+                    },
+                    "persistent": false
                   }
                 },
                 "props": {
@@ -326,7 +327,7 @@
           }
         ],
         "meta": {
-          "name": "FlexContainer"
+          "name": "FlexContainer_Header"
         },
         "position": {
           "basis": "50px",
@@ -341,14 +342,17 @@
       },
       {
         "custom": {
+          "number_of_logs": 1143,
           "query_last_execution": {
             "$": [
               "ts",
               192,
-              1787623488988
+              1787708208127
             ],
-            "$ts": 1787623488988
-          }
+            "$ts": 1787708208127
+          },
+          "query_polling": 5,
+          "table_filtering_active": false
         },
         "meta": {
           "name": "Table"
@@ -363,7 +367,8 @@
                 "expression": "if(isGood({this.props.data}),\r\n\tlen({this.props.data}),\r\n\t0\r\n)"
               },
               "type": "expr"
-            }
+            },
+            "persistent": true
           },
           "custom.query_polling": {
             "binding": {
@@ -401,12 +406,13 @@
                   "type": "map"
                 },
                 {
-                  "expression": "if({../FlexContainer/Auto_Update.custom.auto_update},{value},999999999)",
+                  "expression": "if({../FlexContainer_Header/Auto_Update.custom.auto_update},{value},999999999)",
                   "type": "expression"
                 }
               ],
               "type": "expr"
-            }
+            },
+            "persistent": true
           },
           "custom.table_filtering_active": {
             "binding": {
@@ -424,7 +430,8 @@
                 }
               ],
               "type": "expr-struct"
-            }
+            },
+            "persistent": true
           },
           "props.data": {
             "binding": {
@@ -445,7 +452,7 @@
               },
               "transforms": [
                 {
-                  "code": "\tself.custom.query_last_execution \u003d system.date.now()\n\treturn value",
+                  "code": "\n\tself.custom.query_last_execution \u003d system.date.now()\n\treturn value",
                   "type": "script"
                 }
               ],

@@ -13,7 +13,7 @@
         "children": [
           {
             "meta": {
-              "name": "Label"
+              "name": "Label_Name"
             },
             "position": {
               "basis": "32px",
@@ -308,7 +308,6 @@
           "grow": 1
         },
         "props": {
-          "currentTabIndex": 2,
           "menuType": "modern",
           "tabSize": {
             "height": 30,
@@ -355,7 +354,7 @@
     "props": {
       "direction": "column",
       "style": {
-        "backgroundColor": "--callToActionHighlight"
+        "backgroundColor": ""
       }
     },
     "type": "ia.container.flex"

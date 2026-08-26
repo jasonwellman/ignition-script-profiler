@@ -16,9 +16,9 @@
     "enabled": true,
     "cacheAmount": 1,
     "cacheEnabled": false,
-    "database": "sql",
+    "database": "",
     "fallbackEnabled": false,
-    "lastModificationSignature": "e615af096c41f5b2e7f79e8b9b95a38cb1aa090673af087fc9b205fd8b11b6de",
+    "lastModificationSignature": "ecba700a510109553707b9c9a36ad5a53418896926289c9172928dba5fe8b3fe",
     "permissions": [
       {
         "zone": "",
@@ -27,7 +27,7 @@
     ],
     "lastModification": {
       "actor": "jasonw",
-      "timestamp": "2026-08-23T15:48:16Z"
+      "timestamp": "2026-08-26T01:04:26Z"
     },
     "parameters": [
       {

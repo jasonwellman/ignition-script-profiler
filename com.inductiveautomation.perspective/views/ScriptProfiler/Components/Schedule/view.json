@@ -65,7 +65,7 @@
                 },
                 "polling": {
                   "enabled": true,
-                  "rate": "5"
+                  "rate": "60"
                 },
                 "queryPath": "scriptProfiler/getHistoryForEquipmentScheduleComponent",
                 "returnFormat": "json"
@@ -93,8 +93,7 @@
             "borderTopLeftRadius": 3,
             "borderTopRightRadius": 3,
             "borderWidth": 0
-          },
-          "selectedEvent": {}
+          }
         },
         "type": "ia.display.equipmentschedule"
       }

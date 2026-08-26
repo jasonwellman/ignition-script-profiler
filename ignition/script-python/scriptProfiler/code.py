@@ -27,16 +27,27 @@ def ensure_table_exists():
 
 def profiler(_func=None, script_type="General Script", capture_stack=False, debug=False, comment=None):
 	"""
-	A flexible decorator that measures execution duration, catches errors, 
-	and logs script performance metrics.
+	A flexible decorator that measures execution duration, catches errors, and logs script performance metrics.
+
+    Example:
+        from scriptProfiler import profiler
+
+        @profiler(script_type="Timer Script", debug=False, comment="My Script")
+        def my_script():
+            # Execution logic here
+            return results
 	
 	Parameters:
-	- script_type: Category of the script for dashboard filtering (e.g., 'Timer Script').
-	- capture_stack: Boolean (False by default). If True, formats full stack traces on error.
-	- debug: Boolean (False by default). If True, prints telemetry reports directly to the console.
-	- comment: Optional string for adding notes or execution context.
+		_func (callable, optional): Internal reference when used as a bare decorator `@profiler`.
+		script_type (str, optional): Category for dashboard filtering (default: "General Script").
+		capture_stack (bool, optional): If True, logs full stack traces on error (default: False).
+		debug (bool, optional): If True, prints telemetry directly to Gateway logs/console (default: False).
+		comment (str, optional): Custom string for adding execution notes or context.
 	
-	AVAILABLE STANDARD SCRIPT TYPES:
+	Returns:
+        callable: Wrapped function that handles execution timing, error handling, and logging.
+	
+	SUGGESTED SCRIPT TYPES
 	--------------------------------
 	* "Timer Script"        - For scheduled background polling loops.
 	* "Tag Change Script"   - For data-driven tag state updates.
