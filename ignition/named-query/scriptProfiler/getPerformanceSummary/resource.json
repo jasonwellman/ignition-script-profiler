@@ -1,0 +1,60 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "Query",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "sql",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "57cc46adac13bb80dc61cc9517b188adc315738985ca21ffc90fe2ca862cbb81",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "jasonw",
+      "timestamp": "2026-08-23T16:15:47Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "date_start",
+        "sqlType": 8
+      },
+      {
+        "type": "Parameter",
+        "identifier": "date_end",
+        "sqlType": 8
+      },
+      {
+        "type": "Parameter",
+        "identifier": "script_name",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "script_type",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "comment_filter",
+        "sqlType": 7
+      }
+    ]
+  }
+}

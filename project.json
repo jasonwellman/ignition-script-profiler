@@ -1,0 +1,7 @@
+{
+  "title": "Scripting Performance Analyzer",
+  "description": "A lightweight, decorator-driven performance profiling and error-tracking utility for Ignition gateway, tag change, and timer scripts.",
+  "enabled": true,
+  "inheritable": false,
+  "parent": ""
+}

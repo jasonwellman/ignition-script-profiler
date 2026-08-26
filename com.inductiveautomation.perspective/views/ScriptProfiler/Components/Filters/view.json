@@ -1,0 +1,649 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 547,
+      "width": 719
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "fontSize": "1.5em",
+                "fontWeight": "bold"
+              },
+              "text": "Filters"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\n\tcurrent_year \u003d system.date.getYear(system.date.now())\n\tdate \u003d system.date.getDate(current_year, 0, 1)\n\n\tself.session.custom.scriptProfiler.filters.dateStart \u003d system.date.addYears(date, -10)\n\tself.session.custom.scriptProfiler.filters.dateEnd \u003d system.date.addYears(date, +1)\n\tself.session.custom.scriptProfiler.filters.scriptName \u003d None\n\tself.session.custom.scriptProfiler.filters.scriptType \u003d None\n\tself.session.custom.scriptProfiler.filters.commentFilter \u003d None"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Clear",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "text": "Reset all filter criteria"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/format_clear"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em"
+              },
+              "text": "Reset"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": false,
+                    "id": "ScriptProfilerFilterPopup",
+                    "modal": false,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "close",
+                    "viewPath": "",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "CLose"
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/close"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Close"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Flex Container_Header"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "padding": "5px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{parent.meta.name}+\u0027:\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "paddingRight": 5,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Date"
+            },
+            "position": {
+              "basis": "170px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.filters.dateStart"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "formattedValue": "Aug 23, 2026 12:08 PM",
+              "formattedValues": {
+                "date": "Sep 11, 2020",
+                "datetime": "Sep 11, 2020 12:29 PM",
+                "time": "12:29 PM"
+              },
+              "inputProps": {
+                "style": {
+                  "borderBottomLeftRadius": 7,
+                  "borderBottomRightRadius": 7,
+                  "borderTopLeftRadius": 7,
+                  "borderTopRightRadius": 7,
+                  "cursor": "pointer"
+                }
+              },
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.input.date-time-input"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.getSibling(\"Date\").props.value \u003dsystem.date.now()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Now",
+              "tooltip": {
+                "enabled": true,
+                "location": "center-right",
+                "text": "Set date/time to now"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/access_time"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Now"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Start Date"
+        },
+        "position": {
+          "basis": "2em",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{parent.meta.name}+\u0027:\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "paddingRight": 5,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Date"
+            },
+            "position": {
+              "basis": "170px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.filters.dateEnd"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "formattedValue": "Aug 23, 2026 12:13 PM",
+              "formattedValues": {
+                "date": "Sep 11, 2020",
+                "datetime": "Sep 11, 2020 12:29 PM",
+                "time": "12:29 PM"
+              },
+              "inputProps": {
+                "style": {
+                  "borderBottomLeftRadius": 7,
+                  "borderBottomRightRadius": 7,
+                  "borderTopLeftRadius": 7,
+                  "borderTopRightRadius": 7,
+                  "cursor": "pointer"
+                }
+              }
+            },
+            "type": "ia.input.date-time-input"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.getSibling(\"Date\").props.value \u003dsystem.date.now()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Now",
+              "tooltip": {
+                "enabled": true,
+                "location": "center-right",
+                "text": "Set date/time to now"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/access_time"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Now"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "End Date"
+        },
+        "position": {
+          "basis": "2em",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{parent.meta.name}+\u0027:\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "paddingRight": 5,
+                "paddingTop": 4,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "mode": "direct",
+                    "polling": {
+                      "enabled": true,
+                      "rate": "60"
+                    },
+                    "queryPath": "scriptProfiler/getDistinctScriptNames"
+                  },
+                  "type": "query"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.filters.scriptName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "multiSelect": true,
+              "style": {
+                "borderBottomLeftRadius": 7,
+                "borderBottomRightRadius": 7,
+                "borderTopLeftRadius": 7,
+                "borderTopRightRadius": 7,
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2,
+            "minHeight": "2em"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{parent.meta.name}+\u0027:\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "paddingRight": 5,
+                "paddingTop": 4,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "mode": "direct",
+                    "polling": {
+                      "enabled": true,
+                      "rate": "60"
+                    },
+                    "queryPath": "scriptProfiler/getDistinctScriptTypes"
+                  },
+                  "type": "query"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.filters.scriptType"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "multiSelect": true,
+              "style": {
+                "borderBottomLeftRadius": 7,
+                "borderBottomRightRadius": 7,
+                "borderTopLeftRadius": 7,
+                "borderTopRightRadius": 7,
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Type"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2,
+            "minHeight": "2em"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{parent.meta.name}+\u0027:\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "paddingRight": 5,
+                "paddingTop": 4,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "mode": "direct",
+                    "polling": {
+                      "enabled": true,
+                      "rate": "60"
+                    },
+                    "queryPath": "scriptProfiler/getDistinctComments"
+                  },
+                  "type": "query"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.filters.commentFilter"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "multiSelect": true,
+              "style": {
+                "borderBottomLeftRadius": 7,
+                "borderBottomRightRadius": 7,
+                "borderTopLeftRadius": 7,
+                "borderTopRightRadius": 7,
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Comment"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2,
+            "minHeight": "2em"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "padding": 5
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

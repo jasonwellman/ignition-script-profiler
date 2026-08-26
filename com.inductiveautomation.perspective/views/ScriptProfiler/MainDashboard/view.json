@@ -1,0 +1,363 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 1118,
+      "width": 1226
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "color": "--qual-10",
+                "fontSize": "1.5em",
+                "fontWeight": "bold"
+              },
+              "text": "Script Performance Analysis Tool"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": false,
+                    "id": "ScriptProfilerFilterPopup",
+                    "modal": true,
+                    "overlayDismiss": true,
+                    "position": {
+                      "relativeLocation": "bottom-left"
+                    },
+                    "positionType": "relative",
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "toggle",
+                    "viewPath": "ScriptProfiler/Components/Filters",
+                    "viewportBound": true
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Filter",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-right",
+                "text": "Set the session filtering"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/filter_alt"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Filter"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {},
+                  "scope": "C",
+                  "type": "login"
+                }
+              }
+            },
+            "meta": {
+              "name": "Login",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-right",
+                "text": "Login/Logout"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.auth.authenticated"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "--callToAction",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": true,
+                          "output": "--qual-7"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.auth.authenticated"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "Login",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": true,
+                          "output": "Logout"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/login"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tif self.session.props.theme \u003d\u003d \u0027dark\u0027:\n\t\tself.session.props.theme \u003d \u0027light\u0027\n\telse:\n\t\tself.session.props.theme \u003d \u0027dark\u0027\n\treturn"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Theme",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-right",
+                "text": "Toggle light/dark theme"
+              }
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.image.icon.path": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "material/wb_sunny",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "dark",
+                          "output": "material/nights_stay"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {}
+              },
+              "style": {
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Theme"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Flex Container_Header"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "padding": "5px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView_Performance"
+            },
+            "props": {
+              "params": {
+                "date_end": "2050-1-1 0:00:00",
+                "date_start": "2000-1-1 0:00:00"
+              },
+              "path": "ScriptProfiler/Components/Table_Performance"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_Schedule"
+            },
+            "position": {
+              "tabIndex": 1
+            },
+            "props": {
+              "params": {
+                "date_end": "2050-1-1 0:00:00",
+                "date_start": "2000-1-1 0:00:00"
+              },
+              "path": "ScriptProfiler/Components/Schedule"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_Trend"
+            },
+            "position": {
+              "tabIndex": 2
+            },
+            "props": {
+              "params": {
+                "date_end": "2050-1-1 0:00:00",
+                "date_start": "2000-1-1 0:00:00"
+              },
+              "path": "ScriptProfiler/Components/Trend"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_Table_Raw"
+            },
+            "position": {
+              "tabIndex": 3
+            },
+            "props": {
+              "params": {
+                "date_end": "2050-1-1 0:00:00",
+                "date_start": "2000-1-1 0:00:00"
+              },
+              "path": "ScriptProfiler/Components/Table_Raw"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Tab Container"
+        },
+        "position": {
+          "basis": "300px",
+          "grow": 1
+        },
+        "props": {
+          "currentTabIndex": 2,
+          "menuType": "modern",
+          "tabSize": {
+            "height": 30,
+            "width": 150
+          },
+          "tabStyle": {
+            "active": {
+              "boxShadow": "inset 0 -5px var(--qual-2)",
+              "color": "--qual-2",
+              "fontSize": 14,
+              "fontWeight": "bold"
+            },
+            "inactive": {
+              "color": "--qual-2",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            }
+          },
+          "tabs": [
+            {
+              "disabled": false,
+              "text": "Performance"
+            },
+            {
+              "disabled": false,
+              "text": "Schedule"
+            },
+            {
+              "disabled": false,
+              "text": "Trend"
+            },
+            {
+              "disabled": false,
+              "text": "View/Clean Logs"
+            }
+          ]
+        },
+        "type": "ia.container.tab"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "--callToActionHighlight"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

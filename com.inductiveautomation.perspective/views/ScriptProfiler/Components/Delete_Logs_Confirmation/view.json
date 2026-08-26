@@ -1,0 +1,186 @@
+{
+  "custom": {},
+  "params": {
+    "logs_selected": ""
+  },
+  "propConfig": {
+    "params.logs_selected": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 232,
+      "width": 550
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\"Delete \" + {view.params.logs_selected} + \" logs?\""
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "fontSize": "1.5em",
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Flex Container_Header"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "padding": "5px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Markdown"
+        },
+        "position": {
+          "basis": "144px"
+        },
+        "props": {
+          "source": "⚠️ **WARNING: PERMANENT DATA LOSS**⚠️\n\nYou are about to **permanently delete** execution logs matching your current filter criteria.  **This action cannot be undone.** Deleted records will be purged immediately from the database. Please double-check **all filters** before proceeding.",
+          "style": {
+            "marginTop": 15,
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.markdown"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.view.getChild(\"root\").close_popup()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/undo"
+                }
+              },
+              "style": {
+                "backgroundColor": "--neutral-50",
+                "fontSize": "1.2em"
+              },
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tpath \u003d \u0027scriptProfiler/deleteLogsForCleanup\u0027\n\tparameters \u003d {\n\t    \"date_start\": self.session.custom.scriptProfiler.filters.dateStart,\n\t    \"date_end\": self.session.custom.scriptProfiler.filters.dateEnd,\n\t    \"script_name\": self.session.custom.scriptProfiler.queryPayload.scriptName,\n\t    \"script_type\": self.session.custom.scriptProfiler.queryPayload.scriptType,\n\t    \"comment_filter\": self.session.custom.scriptProfiler.queryPayload.commentFilter\n\t}\n\t\n\tsystem.db.execUpdate(path, parameters)\n\tself.view.getChild(\"root\").close_popup()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Delete"
+            },
+            "position": {
+              "basis": "125px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/delete_forever"
+                }
+              },
+              "style": {
+                "backgroundColor": "--qual-5",
+                "fontSize": "1.2em",
+                "marginLeft": 5
+              },
+              "text": "Yes"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Flex Container_Action"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "padding": "5px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [
+        {
+          "name": "close_popup",
+          "params": [],
+          "script": "\tsystem.perspective.closePopup(\u0027Delete_Logs_Confirmation\u0027)"
+        }
+      ],
+      "extensionFunctions": null,
+      "messageHandlers": []
+    },
+    "type": "ia.container.flex"
+  }
+}

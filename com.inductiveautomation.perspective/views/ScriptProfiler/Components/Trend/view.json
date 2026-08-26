@@ -1,0 +1,366 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "width": 1200
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label_Total"
+                },
+                "position": {
+                  "basis": "32px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": " \"TOTAL LOGS: \" + {..../TimeSeriesChart.custom.number_of_logs}"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "fontSize": "1.2em",
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_Updating"
+                },
+                "position": {
+                  "basis": "32px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\t\u0027Updating in \u0027 + round(millisBetween(now(100),addSeconds({..../TimeSeriesChart.custom.query_last_execution},{..../TimeSeriesChart.custom.query_polling}))/1000,1) + \u0027 seconds\u0027,\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "fontSize": "0.75em"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer_Info"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "custom": {
+              "auto_update": true
+            },
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.custom.auto_update \u003d not self.custom.auto_update"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Auto_Update",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "text": "Turn on/off auto updating table."
+              }
+            },
+            "position": {
+              "basis": "135px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.primary": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.auto_update"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.auto_update"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": true,
+                          "output": "--qual-7"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/refresh"
+                }
+              },
+              "style": {
+                "fontSize": "1em",
+                "marginLeft": 5
+              },
+              "text": "Auto Update"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "50px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "padding": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "custom": {
+          "query_last_execution": {
+            "$": [
+              "ts",
+              192,
+              1787705144817
+            ],
+            "$ts": 1787705144817
+          }
+        },
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "custom.number_of_logs": {
+            "binding": {
+              "config": {
+                "expression": "if(isGood({this.props.series[0].data}),\r\n\tlen({this.props.series[0].data}),\r\n\t0\r\n)"
+              },
+              "type": "expr"
+            }
+          },
+          "custom.query_polling": {
+            "binding": {
+              "config": {
+                "expression": "len({this.props.series[0].data})"
+              },
+              "transforms": [
+                {
+                  "fallback": 60,
+                  "inputType": "range",
+                  "mappings": [
+                    {
+                      "input": {
+                        "max": 1000,
+                        "min": 0
+                      },
+                      "output": 1
+                    },
+                    {
+                      "input": {
+                        "max": 5000,
+                        "min": 1001
+                      },
+                      "output": 5
+                    },
+                    {
+                      "input": {
+                        "max": 10000,
+                        "min": 5000
+                      },
+                      "output": 15
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.series[0].data": {
+            "binding": {
+              "config": {
+                "mode": "direct",
+                "parameters": {
+                  "date_end": "{session.custom.scriptProfiler.filters.dateEnd}",
+                  "date_start": "{session.custom.scriptProfiler.filters.dateStart}",
+                  "script_name": "{session.custom.scriptProfiler.queryPayload.scriptName}",
+                  "script_type": "{session.custom.scriptProfiler.queryPayload.scriptType}"
+                },
+                "polling": {
+                  "enabled": true,
+                  "rate": "{this.custom.query_polling}"
+                },
+                "queryPath": "scriptProfiler/getTimeSeriesExecutionLogs",
+                "returnFormat": "dataset"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value is None or value.rowCount \u003d\u003d 0:\n\t\treturn value\n\t\n\tpy_data \u003d system.dataset.toPyDataSet(value)\n\t\n\t# Extract unique script names dynamically\n\tunique_scripts \u003d sorted(list(set(row[\"script_name\"] for row in py_data)))\n\theaders \u003d [\"t_stamp\"] + unique_scripts\n\t\n\t# Build pivoted rows with nulls for inactive series on each timestamp\n\trows \u003d []\n\tfor row in py_data:\n\t\tt_stamp \u003d row[\"t_stamp\"]\n\t\ts_name \u003d row[\"script_name\"]\n\t\tduration \u003d row[\"duration_ms\"]\n\t\t\n\t\tnew_row \u003d [t_stamp] + [duration if name \u003d\u003d s_name else None for name in unique_scripts]\n\t\trows.append(new_row)\n\t\t\n\tself.custom.query_last_execution \u003d system.date.now()\n\treturn system.dataset.toDataSet(headers, rows)",
+                  "type": "script"
+                }
+              ],
+              "type": "query"
+            }
+          }
+        },
+        "props": {
+          "autoGenerateSeriesNames": true,
+          "defaultStyles": {
+            "colorScheme": "Spectral"
+          },
+          "legend": {
+            "position": "right",
+            "visible": true
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "left",
+                  "grid": {
+                    "color": "",
+                    "dashArray": 0,
+                    "opacity": 0.2,
+                    "style": {
+                      "classes": ""
+                    },
+                    "visible": true
+                  },
+                  "label": {
+                    "font": {
+                      "size": 14
+                    },
+                    "offset": 0,
+                    "style": {
+                      "classes": "",
+                      "fontWeight": "bold"
+                    },
+                    "text": "Execution Time (ms)",
+                    "visible": true
+                  },
+                  "max": "",
+                  "min": "",
+                  "name": "default",
+                  "style": {
+                    "classes": ""
+                  },
+                  "tick": {
+                    "count": "Auto",
+                    "label": {
+                      "font": {
+                        "size": 10
+                      },
+                      "format": "Auto",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "width": 60
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "default",
+                  "baselines": [],
+                  "breakLine": true,
+                  "columns": [],
+                  "interpolation": "curveStepAfter",
+                  "radius": 3,
+                  "series": "series",
+                  "stack": true,
+                  "type": "scatter",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "name": "series"
+            }
+          ],
+          "timeAxis": {
+            "grid": {
+              "opacity": 0.025,
+              "visible": true
+            },
+            "tick": {
+              "label": {
+                "format": "MMM D h:mm:ss a"
+              }
+            }
+          },
+          "timeRange": {
+            "timeFormat": "h:mm:ss a"
+          }
+        },
+        "type": "ia.chart.timeseries"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

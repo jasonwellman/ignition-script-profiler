@@ -1,0 +1,144 @@
+{
+  "custom": {
+    "scriptProfiler": {
+      "filters": {
+        "commentFilter": null,
+        "dateEnd": {
+          "$": [
+            "ts",
+            192,
+            1787532206119
+          ],
+          "$ts": 1787588029000
+        },
+        "dateStart": {
+          "$": [
+            "ts",
+            0,
+            1787532838997
+          ],
+          "$ts": 1787501329000
+        },
+        "scriptName": null,
+        "scriptType": null
+      },
+      "queryPayload": {},
+      "ui": {
+        "activeTab": "dashboard",
+        "selectedLogId": null
+      }
+    }
+  },
+  "propConfig": {
+    "custom.scriptProfiler.queryPayload.commentFilter": {
+      "binding": {
+        "config": {
+          "path": "this.custom.scriptProfiler.filters.commentFilter"
+        },
+        "transforms": [
+          {
+            "code": "    return \",\".join(str(item) for item in value) if value else \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.scriptProfiler.queryPayload.scriptName": {
+      "binding": {
+        "config": {
+          "path": "this.custom.scriptProfiler.filters.scriptName"
+        },
+        "transforms": [
+          {
+            "code": "    return \",\".join(str(item) for item in value) if value else \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.scriptProfiler.queryPayload.scriptType": {
+      "binding": {
+        "config": {
+          "path": "this.custom.scriptProfiler.filters.scriptType"
+        },
+        "transforms": [
+          {
+            "code": "    return \",\".join(str(item) for item in value) if value else \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "props.auth": {
+      "access": "PRIVATE",
+      "persistent": false
+    },
+    "props.device.accelerometer": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.identifier": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.timezone": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.type": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.userAgent": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.gateway": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.geolocation.data": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.geolocation.permissionGranted": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.host": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.id": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.lastActivity": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.offline.capable": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.offline.enabled": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.offline.lastSynced": {
+      "access": "SYSTEM",
+      "persistent": false
+    }
+  },
+  "props": {
+    "address": "127.0.0.1",
+    "device": {},
+    "geolocation": {},
+    "locale": "en-US",
+    "offline": {},
+    "timeZoneId": "America/Indianapolis"
+  }
+}

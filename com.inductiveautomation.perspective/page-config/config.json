@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "/scriptprofiler": {
+      "title": "",
+      "viewPath": "ScriptProfiler/MainDashboard"
+    }
+  },
+  "sharedDocks": {
+    "cornerPriority": "top-bottom"
+  }
+}
