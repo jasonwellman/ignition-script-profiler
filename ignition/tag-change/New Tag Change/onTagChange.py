@@ -1,5 +1,5 @@
 def onTagChange(initialChange, newValue, previousValue, event, executionCount):
-		from scriptProfiler import profiler
+	from scriptProfiler import profiler
 	
 	@profiler(script_type="Timer Script", debug=False, comment="My Script")
 	def my_script():
