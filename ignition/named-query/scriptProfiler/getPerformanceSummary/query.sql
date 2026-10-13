@@ -3,6 +3,10 @@ SELECT
     script_type,
     COUNT(*) AS total_executions,
     SUM(CASE WHEN status = 'ERROR' THEN 1 ELSE 0 END) AS error_count,
+    CAST(
+        100.0 * SUM(CASE WHEN status <> 'ERROR' THEN 1 ELSE 0 END) / COUNT(*) 
+        AS DECIMAL(5, 2)
+    ) AS percent_successful,
     MIN(duration_ms) AS min_duration_ms,
     MAX(duration_ms) AS max_duration_ms,
     AVG(duration_ms) AS avg_duration_ms,

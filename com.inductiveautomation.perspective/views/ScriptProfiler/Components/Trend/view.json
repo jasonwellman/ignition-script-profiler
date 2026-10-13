@@ -26,6 +26,7 @@
                       "config": {
                         "expression": " \"TOTAL LOGS: \" + {..../TimeSeriesChart.custom.number_of_logs}"
                       },
+                      "overlayOptOut": true,
                       "type": "expr"
                     }
                   }
@@ -39,6 +40,9 @@
                 "type": "ia.display.label"
               },
               {
+                "custom": {
+                  "time_calculation": 0.2
+                },
                 "meta": {
                   "name": "Label_Updating"
                 },
@@ -47,19 +51,31 @@
                   "grow": 1
                 },
                 "propConfig": {
+                  "custom.time_calculation": {
+                    "binding": {
+                      "config": {
+                        "expression": "round(millisBetween(now(100),addSeconds({..../TimeSeriesChart.custom.query_last_execution},{..../TimeSeriesChart.custom.query_polling}))/1000,1)"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    },
+                    "persistent": true
+                  },
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\t\u0027Updating in \u0027 + round(millisBetween(now(100),addSeconds({..../TimeSeriesChart.custom.query_last_execution},{..../TimeSeriesChart.custom.query_polling}))/1000,1) + \u0027 seconds\u0027,\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
                       "type": "expr"
-                    }
+                    },
+                    "persistent": true
                   }
                 },
                 "props": {
                   "style": {
                     "fontSize": "0.75em"
-                  }
+                  },
+                  "text": "Updating in 0.2 seconds"
                 },
                 "type": "ia.display.label"
               }
@@ -94,12 +110,12 @@
               "name": "Auto_Update",
               "tooltip": {
                 "enabled": true,
-                "location": "bottom-left",
+                "location": "bottom-right",
                 "text": "Turn on/off auto updating table."
               }
             },
             "position": {
-              "basis": "135px",
+              "basis": "40px",
               "shrink": 0
             },
             "propConfig": {
@@ -144,7 +160,7 @@
                 "fontSize": "1em",
                 "marginLeft": 5
               },
-              "text": "Auto Update"
+              "text": ""
             },
             "type": "ia.input.button"
           }
@@ -165,14 +181,16 @@
       },
       {
         "custom": {
+          "number_of_logs": 0,
           "query_last_execution": {
             "$": [
               "ts",
               192,
-              1787708209005
+              1787831961045
             ],
-            "$ts": 1787708209005
-          }
+            "$ts": 1787831961045
+          },
+          "query_polling": 1
         },
         "meta": {
           "name": "TimeSeriesChart"
@@ -187,7 +205,8 @@
                 "expression": "if(isGood({this.props.series[0].data}),\r\n\tlen({this.props.series[0].data}),\r\n\t0\r\n)"
               },
               "type": "expr"
-            }
+            },
+            "persistent": true
           },
           "custom.query_polling": {
             "binding": {
@@ -226,7 +245,8 @@
                 }
               ],
               "type": "expr"
-            }
+            },
+            "persistent": true
           },
           "props.series[0].data": {
             "binding": {
@@ -247,7 +267,7 @@
               },
               "transforms": [
                 {
-                  "code": "\tif value is None or value.rowCount \u003d\u003d 0:\n\t\treturn value\n\t\n\tpy_data \u003d system.dataset.toPyDataSet(value)\n\t\n\t# Extract unique script names dynamically\n\tunique_scripts \u003d sorted(list(set(row[\"script_name\"] for row in py_data)))\n\theaders \u003d [\"t_stamp\"] + unique_scripts\n\t\n\t# Build pivoted rows with nulls for inactive series on each timestamp\n\trows \u003d []\n\tfor row in py_data:\n\t\tt_stamp \u003d row[\"t_stamp\"]\n\t\ts_name \u003d row[\"script_name\"]\n\t\tduration \u003d row[\"duration_ms\"]\n\t\t\n\t\tnew_row \u003d [t_stamp] + [duration if name \u003d\u003d s_name else None for name in unique_scripts]\n\t\trows.append(new_row)\n\t\t\n\tself.custom.query_last_execution \u003d system.date.now()\n\treturn system.dataset.toDataSet(headers, rows)",
+                  "code": "\t\n\tdef update_query_last_execution():\n\t\tself.custom.query_last_execution \u003d system.date.now()\n\t\n\tif value is None or value.rowCount \u003d\u003d 0:\n\t\tupdate_query_last_execution()\n\t\treturn value\n\t\n\tpy_data \u003d system.dataset.toPyDataSet(value)\n\t\n\t# Extract unique script names dynamically\n\tunique_scripts \u003d sorted(list(set(row[\"script_name\"] for row in py_data)))\n\theaders \u003d [\"t_stamp\"] + unique_scripts\n\t\n\t# Build pivoted rows with nulls for inactive series on each timestamp\n\trows \u003d []\n\tfor row in py_data:\n\t\tt_stamp \u003d row[\"t_stamp\"]\n\t\ts_name \u003d row[\"script_name\"]\n\t\tduration \u003d row[\"duration_ms\"]\n\t\t\n\t\tnew_row \u003d [t_stamp] + [duration if name \u003d\u003d s_name else None for name in unique_scripts]\n\t\trows.append(new_row)\n\t\t\n\tupdate_query_last_execution()\n\treturn system.dataset.toDataSet(headers, rows)",
                   "type": "script"
                 }
               ],

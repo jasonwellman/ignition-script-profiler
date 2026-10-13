@@ -62,7 +62,7 @@
               }
             },
             "position": {
-              "basis": "125px",
+              "basis": "40px",
               "shrink": 0
             },
             "props": {
@@ -75,7 +75,7 @@
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
-              "text": "Filter"
+              "text": ""
             },
             "type": "ia.input.button"
           },
@@ -98,7 +98,7 @@
               }
             },
             "position": {
-              "basis": "125px",
+              "basis": "40px",
               "shrink": 0
             },
             "propConfig": {
@@ -129,6 +129,7 @@
                   "config": {
                     "path": "session.props.auth.authenticated"
                   },
+                  "enabled": false,
                   "transforms": [
                     {
                       "fallback": "Login",
@@ -156,7 +157,8 @@
               "style": {
                 "fontSize": "1.2em",
                 "marginLeft": 5
-              }
+              },
+              "text": ""
             },
             "type": "ia.input.button"
           },
@@ -181,7 +183,7 @@
               }
             },
             "position": {
-              "basis": "125px",
+              "basis": "40px",
               "shrink": 0
             },
             "propConfig": {
@@ -216,7 +218,7 @@
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
-              "text": "Theme"
+              "text": ""
             },
             "type": "ia.input.button"
           }
@@ -253,26 +255,10 @@
           },
           {
             "meta": {
-              "name": "EmbeddedView_Schedule"
-            },
-            "position": {
-              "tabIndex": 1
-            },
-            "props": {
-              "params": {
-                "date_end": "2050-1-1 0:00:00",
-                "date_start": "2000-1-1 0:00:00"
-              },
-              "path": "ScriptProfiler/Components/Schedule"
-            },
-            "type": "ia.display.view"
-          },
-          {
-            "meta": {
               "name": "EmbeddedView_Trend"
             },
             "position": {
-              "tabIndex": 2
+              "tabIndex": 1
             },
             "props": {
               "params": {
@@ -288,7 +274,7 @@
               "name": "EmbeddedView_Table_Raw"
             },
             "position": {
-              "tabIndex": 3
+              "tabIndex": 2
             },
             "props": {
               "params": {
@@ -330,10 +316,6 @@
             {
               "disabled": false,
               "text": "Performance"
-            },
-            {
-              "disabled": false,
-              "text": "Schedule"
             },
             {
               "disabled": false,

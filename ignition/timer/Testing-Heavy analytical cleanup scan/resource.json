@@ -9,12 +9,12 @@
   "attributes": {
     "sharedThread": true,
     "delay": 60000,
-    "lastModificationSignature": "0e6c6437d9cf72a883c832e11f1b4feb494a343ff1a6064012961c6b908cc5a9",
+    "lastModificationSignature": "3b29cf2d0ca6c692ecbb0d3ac910835f9c72cb1f7f7a630ce2518c71853dd62f",
     "fixedDelay": true,
     "lastModification": {
       "actor": "jasonw",
-      "timestamp": "2026-08-22T17:14:44Z"
+      "timestamp": "2026-08-27T11:03:21Z"
     },
-    "enabled": true
+    "enabled": false
   }
 }

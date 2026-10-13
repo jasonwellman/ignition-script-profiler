@@ -32,7 +32,7 @@ def profiler(_func=None, script_type="General Script", capture_stack=False, debu
     Example:
         from scriptProfiler import profiler
 
-        @profiler(script_type="Timer Script", debug=False, comment="My Script")
+        @profiler(script_type="Timer Script", comment="My Script")
         def my_script():
             # Execution logic here
             return results
@@ -40,8 +40,9 @@ def profiler(_func=None, script_type="General Script", capture_stack=False, debu
 	Parameters:
 		_func (callable, optional): Internal reference when used as a bare decorator `@profiler`.
 		script_type (str, optional): Category for dashboard filtering (default: "General Script").
-		capture_stack (bool, optional): If True, logs full stack traces on error (default: False).
-		debug (bool, optional): If True, prints telemetry directly to Gateway logs/console (default: False).
+		capture_stack (bool, optional): If True, formats and logs full stack traces on unhandled exceptions (default: False).
+			Note: Has zero performance overhead on successful script executions.
+		debug (bool, optional): If True, prints telemetry directly to Designer Output Console (default: False).
 		comment (str, optional): Custom string for adding execution notes or context.
 	
 	Returns:
@@ -49,12 +50,14 @@ def profiler(_func=None, script_type="General Script", capture_stack=False, debu
 	
 	SUGGESTED SCRIPT TYPES
 	--------------------------------
-	* "Timer Script"        - For scheduled background polling loops.
-	* "Tag Change Script"   - For data-driven tag state updates.
-	* "Gateway Event"       - For startup, shutdown, or client session events.
-	* "Custom Library"      - For utility and helper script modules.
-	* "API Integration"     - For external web service calls or SQL syncs.
-	* "General Script"      - Default fallback category.
+	* "Perspective Script"  - For view component actions, events, and message handlers.
+    * "Script Transform"    - For Perspective property binding transforms.
+    * "Project Library"     - For shared business logic and helper script modules.
+    * "Timer Script"        - For scheduled background polling loops.
+    * "Tag Change Script"   - For data-driven tag state updates.
+    * "Gateway Event"       - For startup, shutdown, or session events.
+    * "API Integration"     - For external web service calls or SQL syncs.
+    * "General Script"      - Default fallback category.
 	"""
 	
 	def decorator(func):

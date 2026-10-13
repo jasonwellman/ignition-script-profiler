@@ -26,6 +26,7 @@
                       "config": {
                         "expression": " \"TOTAL LOGS: \" + {..../Table.custom.number_of_logs}"
                       },
+                      "overlayOptOut": true,
                       "type": "expr"
                     }
                   }
@@ -47,11 +48,21 @@
                   "grow": 1
                 },
                 "propConfig": {
+                  "custom.time_calculation": {
+                    "binding": {
+                      "config": {
+                        "expression": "round(millisBetween(now(100),addSeconds({..../Table.custom.query_last_execution},{..../Table.custom.query_polling}))/1000,1)"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  },
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\t\u0027Updating in \u0027 + round(millisBetween(now(100),addSeconds({..../Table.custom.query_last_execution},{..../Table.custom.query_polling}))/1000,1) + \u0027 seconds\u0027,\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
+                      "overlayOptOut": true,
                       "type": "expr"
                     },
                     "persistent": false
@@ -95,12 +106,12 @@
               "name": "Auto_Update",
               "tooltip": {
                 "enabled": true,
-                "location": "bottom-left",
+                "location": "bottom-right",
                 "text": "Turn on/off auto updating table."
               }
             },
             "position": {
-              "basis": "135px",
+              "basis": "40px",
               "shrink": 0
             },
             "propConfig": {
@@ -110,7 +121,8 @@
                     "path": "this.custom.auto_update"
                   },
                   "type": "property"
-                }
+                },
+                "persistent": true
               },
               "props.style.backgroundColor": {
                 "binding": {
@@ -145,7 +157,7 @@
                 "fontSize": "1em",
                 "marginLeft": 5
               },
-              "text": "Auto Update"
+              "text": ""
             },
             "type": "ia.input.button"
           },
@@ -174,12 +186,12 @@
               "name": "Test",
               "tooltip": {
                 "enabled": true,
-                "location": "bottom-left",
+                "location": "bottom-right",
                 "text": "Generate a \u0027Random outcome test\u0027 log"
               }
             },
             "position": {
-              "basis": "125px",
+              "basis": "40px",
               "shrink": 0
             },
             "props": {
@@ -192,7 +204,7 @@
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
-              "text": "Test"
+              "text": ""
             },
             "type": "ia.input.button"
           },
@@ -212,12 +224,12 @@
               "name": "Clear",
               "tooltip": {
                 "enabled": true,
-                "location": "bottom-left",
-                "text": "Reset all filter criteria"
+                "location": "bottom-right",
+                "text": "Reset table filters"
               }
             },
             "position": {
-              "basis": "125px",
+              "basis": "40px",
               "shrink": 0
             },
             "props": {
@@ -230,7 +242,7 @@
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
-              "text": "Reset"
+              "text": ""
             },
             "type": "ia.input.button"
           },
@@ -265,7 +277,7 @@
               "name": "Add",
               "tooltip": {
                 "enabled": true,
-                "location": "bottom-left",
+                "location": "bottom-right",
                 "style": {
                   "whiteSpace": "pre"
                 },
@@ -273,7 +285,7 @@
               }
             },
             "position": {
-              "basis": "150px",
+              "basis": "40px",
               "shrink": 0
             },
             "propConfig": {
@@ -311,17 +323,18 @@
               }
             },
             "props": {
+              "enabled": false,
               "image": {
                 "icon": {
                   "path": "material/delete"
                 }
               },
               "style": {
-                "backgroundColor": "--qual-5",
+                "backgroundColor": "--callToAction--disabled",
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
-              "text": "Delete Logs"
+              "text": ""
             },
             "type": "ia.input.button"
           }
@@ -342,16 +355,16 @@
       },
       {
         "custom": {
-          "number_of_logs": 1143,
+          "number_of_logs": 0,
           "query_last_execution": {
             "$": [
               "ts",
               192,
-              1787708208127
+              1787831960924
             ],
-            "$ts": 1787708208127
+            "$ts": 1787831960924
           },
-          "query_polling": 5,
+          "query_polling": 1,
           "table_filtering_active": false
         },
         "meta": {
@@ -457,7 +470,8 @@
                 }
               ],
               "type": "query"
-            }
+            },
+            "persistent": false
           }
         },
         "props": {

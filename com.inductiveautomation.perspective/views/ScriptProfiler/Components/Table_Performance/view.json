@@ -89,10 +89,6 @@
                   "script_name": "{session.custom.scriptProfiler.queryPayload.scriptName}",
                   "script_type": "{session.custom.scriptProfiler.queryPayload.scriptType}"
                 },
-                "polling": {
-                  "enabled": true,
-                  "rate": "60"
-                },
                 "queryPath": "scriptProfiler/getPerformanceSummary"
               },
               "type": "query"
@@ -534,7 +530,7 @@
                 },
                 "value": {
                   "enabled": true,
-                  "format": "0,0.#",
+                  "format": "0,000",
                   "justify": "center",
                   "style": {
                     "classes": ""
@@ -626,7 +622,7 @@
                 },
                 "value": {
                   "enabled": true,
-                  "format": "0,0.#",
+                  "format": "0,0",
                   "justify": "center",
                   "style": {
                     "classes": ""
@@ -702,7 +698,7 @@
                 "strict": false
               },
               "number": "progress",
-              "numberFormat": "0,0.##",
+              "numberFormat": "0,0",
               "progressBar": {
                 "bar": {
                   "color": "",
@@ -718,7 +714,7 @@
                 },
                 "value": {
                   "enabled": true,
-                  "format": "0,0.#",
+                  "format": "0,0",
                   "justify": "center",
                   "style": {
                     "classes": ""
@@ -726,6 +722,100 @@
                 }
               },
               "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": true,
+              "style": {
+                "classes": "",
+                "paddingLeft": 3,
+                "paddingRight": 3
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "percent_successful",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Percent Successful"
+              },
+              "justify": "center",
+              "nullFormat": {
+                "includeNullStrings": false,
+                "nullFormatValue": "",
+                "strict": false
+              },
+              "number": "progress",
+              "numberFormat": "0%",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0%",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "number",
               "resizable": true,
               "sort": "none",
               "sortable": true,
