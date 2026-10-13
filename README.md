@@ -32,7 +32,7 @@ This suite allows developers to track script execution times, capture unhandled 
 Simply import the decorator and apply it to any function you wish to monitor:
 
 ```python
-from profiler import profiler
+from scriptProfiler import profiler
 
 @profiler
 def my_heavy_query_script(equipment_id):
