@@ -41,7 +41,7 @@
               },
               {
                 "custom": {
-                  "time_calculation": 0.1
+                  "time_calculation": 0.7
                 },
                 "meta": {
                   "name": "Label_Updating"
@@ -64,7 +64,7 @@
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
                       "type": "expr"
                     },
@@ -75,7 +75,7 @@
                   "style": {
                     "fontSize": "0.75em"
                   },
-                  "text": "Updating in 0.1 seconds"
+                  "text": "Updating in 0.7 seconds"
                 },
                 "type": "ia.display.label"
               }
@@ -109,6 +109,7 @@
             "meta": {
               "name": "Auto_Update",
               "tooltip": {
+                "delay": 0,
                 "enabled": true,
                 "location": "bottom-right",
                 "text": "Turn on/off auto updating table."
@@ -186,9 +187,9 @@
             "$": [
               "ts",
               192,
-              1791942951682
+              1791942557383
             ],
-            "$ts": 1791942951682
+            "$ts": 1791942557383
           },
           "query_polling": 1
         },
