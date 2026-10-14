@@ -60,7 +60,7 @@
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
                       "overlayOptOut": true,
                       "type": "expr"
@@ -360,9 +360,9 @@
             "$": [
               "ts",
               192,
-              1787831960924
+              1791942952073
             ],
-            "$ts": 1787831960924
+            "$ts": 1791942952072
           },
           "query_polling": 1,
           "table_filtering_active": false
