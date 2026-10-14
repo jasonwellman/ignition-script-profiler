@@ -56,6 +56,7 @@
             "meta": {
               "name": "Filter",
               "tooltip": {
+                "delay": 0,
                 "enabled": true,
                 "location": "bottom-right",
                 "text": "Set the session filtering"
@@ -92,6 +93,7 @@
             "meta": {
               "name": "Login",
               "tooltip": {
+                "delay": 0,
                 "enabled": true,
                 "location": "bottom-right",
                 "text": "Login/Logout"
@@ -177,6 +179,7 @@
             "meta": {
               "name": "Theme",
               "tooltip": {
+                "delay": 0,
                 "enabled": true,
                 "location": "bottom-right",
                 "text": "Toggle light/dark theme"
