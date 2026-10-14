@@ -35,6 +35,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_min.max"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -43,6 +44,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_min.min"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -51,6 +53,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_max.max"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -59,6 +62,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_max.min"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -67,6 +71,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_avg.max"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -75,6 +80,7 @@
               "config": {
                 "path": "this.custom.table_metrics.duration_avg.min"
               },
+              "overlayOptOut": true,
               "type": "property"
             }
           },
@@ -91,6 +97,7 @@
                 },
                 "queryPath": "scriptProfiler/getPerformanceSummary"
               },
+              "overlayOptOut": true,
               "type": "query"
             }
           }
