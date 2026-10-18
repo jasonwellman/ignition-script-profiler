@@ -6,23 +6,26 @@
         "dateEnd": {
           "$": [
             "ts",
-            192,
-            1787794033299
+            0,
+            1792321840095
           ],
-          "$ts": 1787794033299
+          "$ts": 1893499833000
         },
         "dateStart": {
           "$": [
             "ts",
             0,
-            1787794610254
+            1792321832072
           ],
-          "$ts": 1785893233000
+          "$ts": 1577932033000
         },
         "scriptName": null,
         "scriptType": null
       },
       "queryPayload": {},
+      "querySettings": {
+        "limit": 10000
+      },
       "ui": {
         "activeTab": "dashboard",
         "selectedLogId": null
@@ -134,7 +137,7 @@
     }
   },
   "props": {
-    "address": "127.0.0.1",
+    "address": "[0:0:0:0:0:0:0:1]",
     "device": {},
     "geolocation": {},
     "locale": "en-US",

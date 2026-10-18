@@ -1,6 +1,33 @@
 {
-  "custom": {},
+  "custom": {
+    "number_of_logs": 0,
+    "query_auto_update": "True",
+    "query_limit": 10000
+  },
   "params": {},
+  "propConfig": {
+    "custom.number_of_logs": {
+      "binding": {
+        "config": {
+          "expression": "if(isGood({/root/Table.props.data}),\r\n\tlen({/root/Table.props.data}),\r\n\t0\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.query_auto_update": {
+      "persistent": true
+    },
+    "custom.query_limit": {
+      "binding": {
+        "config": {
+          "path": "session.custom.scriptProfiler.querySettings.limit"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
   "props": {
     "defaultSize": {
       "width": 1200
@@ -14,17 +41,45 @@
             "children": [
               {
                 "meta": {
-                  "name": "Label_Total"
+                  "name": "Label_Total",
+                  "tooltip": {
+                    "delay": 0,
+                    "location": "bottom-left",
+                    "text": "Query limit reach. Please adjust your filters or increase the limit in the settings."
+                  }
                 },
                 "position": {
-                  "basis": "32px",
-                  "grow": 1
+                  "shrink": 0
                 },
                 "propConfig": {
+                  "custom.log_limit_reached": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.number_of_logs}\u003e\u003d{view.custom.query_limit}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "meta.tooltip.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.log_limit_reached"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({this.custom.log_limit_reached},\r\n\t\"--error\",\r\n\t\"\"\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": " \"TOTAL LOGS: \" + {..../Table.custom.number_of_logs}"
+                        "expression": " \"TOTAL LOGS: \" + {view.custom.number_of_logs}"
                       },
                       "overlayOptOut": true,
                       "type": "expr"
@@ -51,7 +106,7 @@
                   "custom.time_calculation": {
                     "binding": {
                       "config": {
-                        "expression": "round(millisBetween(now(100),addSeconds({..../Table.custom.query_last_execution},{..../Table.custom.query_polling}))/1000,1)"
+                        "expression": "round(millisBetween(now(150),addSeconds({..../Table.custom.query_last_execution},{..../Table.custom.query_polling}))/1000,1)"
                       },
                       "overlayOptOut": true,
                       "type": "expr"
@@ -83,13 +138,16 @@
               "grow": 1
             },
             "props": {
-              "direction": "column"
+              "direction": "column",
+              "style": {
+                "overflow": "visible"
+              }
             },
             "type": "ia.container.flex"
           },
           {
             "custom": {
-              "auto_update": true
+              "auto_update": false
             },
             "events": {
               "component": {
@@ -154,6 +212,7 @@
                   "path": "material/refresh"
                 }
               },
+              "primary": false,
               "style": {
                 "fontSize": "1em",
                 "marginLeft": 5
@@ -296,7 +355,7 @@
               "props.enabled": {
                 "binding": {
                   "config": {
-                    "expression": "{session.props.auth.authenticated}\r\n\u0026\u0026{.../Table.props.filter.text}\u003d\u0027\u0027\r\n\u0026\u0026{.../Table.custom.number_of_logs}\u003e0\r\n\u0026\u0026!{.../Table.custom.table_filtering_active}"
+                    "expression": "{session.props.auth.authenticated}\r\n\u0026\u0026{.../Table.props.filter.text}\u003d\u0027\u0027\r\n\u0026\u0026{view.custom.number_of_logs}\u003e0\r\n\u0026\u0026!{.../Table.custom.table_filtering_active}"
                   },
                   "type": "expr"
                 },
@@ -359,16 +418,15 @@
       },
       {
         "custom": {
-          "number_of_logs": 0,
           "query_last_execution": {
             "$": [
               "ts",
               192,
-              1791942556971
+              1792334747448
             ],
-            "$ts": 1791942556971
+            "$ts": 1792334747448
           },
-          "query_polling": 1,
+          "query_polling": 999999999,
           "table_filtering_active": false
         },
         "meta": {
@@ -378,15 +436,6 @@
           "grow": 1
         },
         "propConfig": {
-          "custom.number_of_logs": {
-            "binding": {
-              "config": {
-                "expression": "if(isGood({this.props.data}),\r\n\tlen({this.props.data}),\r\n\t0\r\n)"
-              },
-              "type": "expr"
-            },
-            "persistent": true
-          },
           "custom.query_polling": {
             "binding": {
               "config": {
@@ -394,7 +443,7 @@
               },
               "transforms": [
                 {
-                  "fallback": 60,
+                  "fallback": 10,
                   "inputType": "range",
                   "mappings": [
                     {
@@ -458,6 +507,7 @@
                   "comment": "{session.custom.scriptProfiler.queryPayload.commentFilter}",
                   "date_end": "{session.custom.scriptProfiler.filters.dateEnd}",
                   "date_start": "{session.custom.scriptProfiler.filters.dateStart}",
+                  "limit": "{view.custom.query_limit}",
                   "script_name": "{session.custom.scriptProfiler.queryPayload.scriptName}",
                   "script_type": "{session.custom.scriptProfiler.queryPayload.scriptType}"
                 },
@@ -1339,6 +1389,17 @@
         "type": "ia.display.table"
       }
     ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\tself.view.custom.number_of_logs \u003d 0"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
     "meta": {
       "name": "root"
     },

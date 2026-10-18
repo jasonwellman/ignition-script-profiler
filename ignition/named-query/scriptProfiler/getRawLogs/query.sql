@@ -1,4 +1,6 @@
-SELECT 
+DECLARE @row_limit INT = :limit;
+
+SELECT TOP (@row_limit)
     id
     ,script_name
     ,script_type

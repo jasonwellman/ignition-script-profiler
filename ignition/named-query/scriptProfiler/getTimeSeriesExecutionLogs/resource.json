@@ -16,9 +16,9 @@
     "enabled": true,
     "cacheAmount": 1,
     "cacheEnabled": false,
-    "database": "",
+    "database": "default",
     "fallbackEnabled": false,
-    "lastModificationSignature": "19cf7bbc6e63536c886a9d54f43ded09a30cf2aa97fa6010c715718b2328303b",
+    "lastModificationSignature": "8e7ee92eaba09b4ba1f1afe85dae2beffd8fa91100cee512c6171f6ad25be65e",
     "permissions": [
       {
         "zone": "",
@@ -27,7 +27,7 @@
     ],
     "lastModification": {
       "actor": "jasonw",
-      "timestamp": "2026-08-22T19:25:15Z"
+      "timestamp": "2026-10-17T13:08:11Z"
     },
     "parameters": [
       {
@@ -49,6 +49,11 @@
         "type": "Parameter",
         "identifier": "script_type",
         "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "limit",
+        "sqlType": 2
       }
     ]
   }

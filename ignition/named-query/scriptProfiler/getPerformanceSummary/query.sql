@@ -1,4 +1,17 @@
-SELECT 
+DECLARE @row_limit INT = :limit;
+
+WITH script_execution_logs_limited AS (
+    SELECT TOP (@row_limit)
+        script_name,
+        script_type,
+        status,
+        duration_ms,
+        started_at,
+        comment
+    FROM script_execution_logs
+    ORDER BY started_at DESC -- Adjust sorting (e.g., ID DESC or started_at ASC) to define what "first" means
+)
+SELECT
     script_name,
     script_type,
     COUNT(*) AS total_executions,
@@ -11,7 +24,7 @@ SELECT
     MAX(duration_ms) AS max_duration_ms,
     AVG(duration_ms) AS avg_duration_ms,
     MAX(started_at) AS last_executed_at
-FROM script_execution_logs
+FROM script_execution_logs_limited
 WHERE (NULLIF(:date_start, '') IS NULL OR started_at >= :date_start)
   AND (NULLIF(:date_end, '') IS NULL OR started_at <= :date_end)
   AND (
