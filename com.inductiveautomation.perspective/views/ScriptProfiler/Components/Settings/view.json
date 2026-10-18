@@ -3,8 +3,8 @@
   "params": {},
   "props": {
     "defaultSize": {
-      "height": 547,
-      "width": 719
+      "height": 350,
+      "width": 600
     }
   },
   "root": {
@@ -24,7 +24,7 @@
                 "fontSize": "1.5em",
                 "fontWeight": "bold"
               },
-              "text": "Filters"
+              "text": "SETTINGS"
             },
             "type": "ia.display.label"
           },
@@ -33,45 +33,8 @@
               "component": {
                 "onActionPerformed": {
                   "config": {
-                    "script": "\n\tcurrent_year \u003d system.date.getYear(system.date.now())\n\tdate \u003d system.date.getDate(current_year, 0, 1)\n\n\tself.session.custom.scriptProfiler.filters.dateStart \u003d system.date.addYears(date, -10)\n\tself.session.custom.scriptProfiler.filters.dateEnd \u003d system.date.addYears(date, +1)\n\tself.session.custom.scriptProfiler.filters.scriptName \u003d None\n\tself.session.custom.scriptProfiler.filters.scriptType \u003d None\n\tself.session.custom.scriptProfiler.filters.commentFilter \u003d None"
-                  },
-                  "scope": "G",
-                  "type": "script"
-                }
-              }
-            },
-            "meta": {
-              "name": "Clear",
-              "tooltip": {
-                "enabled": true,
-                "location": "bottom-left",
-                "text": "Reset all filter criteria"
-              }
-            },
-            "position": {
-              "basis": "40px",
-              "shrink": 0
-            },
-            "props": {
-              "image": {
-                "icon": {
-                  "path": "material/format_clear"
-                }
-              },
-              "style": {
-                "fontSize": "1.2em"
-              },
-              "text": ""
-            },
-            "type": "ia.input.button"
-          },
-          {
-            "events": {
-              "component": {
-                "onActionPerformed": {
-                  "config": {
                     "draggable": false,
-                    "id": "ScriptProfilerFilterPopup",
+                    "id": "ScriptProfiler_Popup_Settings",
                     "modal": false,
                     "overlayDismiss": false,
                     "resizable": false,
@@ -132,6 +95,83 @@
               "basis": "150px",
               "shrink": 0
             },
+            "props": {
+              "style": {
+                "paddingRight": 5,
+                "textAlign": "right"
+              },
+              "text": "Filters"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\n\tcurrent_year \u003d system.date.getYear(system.date.now())\n\tdate \u003d system.date.getDate(current_year, 0, 1)\n\n\tself.session.custom.scriptProfiler.filters.dateStart \u003d system.date.addYears(date, -10)\n\tself.session.custom.scriptProfiler.filters.dateEnd \u003d system.date.addYears(date, +1)\n\tself.session.custom.scriptProfiler.filters.scriptName \u003d None\n\tself.session.custom.scriptProfiler.filters.scriptType \u003d None\n\tself.session.custom.scriptProfiler.filters.commentFilter \u003d None"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Clear",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "text": "Reset all filter criteria"
+              }
+            },
+            "position": {
+              "basis": "40px",
+              "shrink": 0
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/format_clear"
+                }
+              },
+              "style": {
+                "fontSize": "1.2em"
+              },
+              "text": ""
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Section_Filters"
+        },
+        "position": {
+          "basis": "1.5em",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "borderTopStyle": "solid",
+            "borderTopWidth": 1,
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginTop": 10,
+            "textTransform": "uppercase"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
             "propConfig": {
               "props.text": {
                 "binding": {
@@ -178,7 +218,7 @@
               }
             },
             "props": {
-              "formattedValue": "Aug 4, 2026 9:27 PM",
+              "formattedValue": "Jan 1, 2020 9:27 PM",
               "formattedValues": {
                 "date": "Sep 11, 2020",
                 "datetime": "Sep 11, 2020 12:29 PM",
@@ -309,7 +349,7 @@
               }
             },
             "props": {
-              "formattedValue": "Aug 26, 2026 9:27 PM",
+              "formattedValue": "Jan 1, 2030 7:10 AM",
               "formattedValues": {
                 "date": "Sep 11, 2020",
                 "datetime": "Sep 11, 2020 12:29 PM",
@@ -644,6 +684,158 @@
             "marginBottom": 2,
             "marginTop": 2,
             "minHeight": "2em"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "paddingRight": 5,
+                "textAlign": "right"
+              },
+              "text": "Performance"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Section_Perf"
+        },
+        "position": {
+          "basis": "1.5em",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "borderTopStyle": "solid",
+            "borderTopWidth": 1,
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginTop": 10,
+            "textTransform": "uppercase"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "150px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "paddingRight": 5,
+                "textAlign": "right"
+              },
+              "text": "Limit: "
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "NumericEntryField",
+              "tooltip": {
+                "delay": 0,
+                "enabled": true,
+                "location": "bottom",
+                "text": "Limit the log results"
+              }
+            },
+            "position": {
+              "basis": "170px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.custom.scriptProfiler.querySettings.limit"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "format": "0,0",
+              "inputBounds": {
+                "maximum": 999999,
+                "minimum": 0
+              },
+              "spinner": {
+                "enabled": false
+              },
+              "style": {
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderStyle": "solid",
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
+                "borderWidth": 1
+              }
+            },
+            "type": "ia.input.numeric-entry-field"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "now(30000)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tquery \u003d \"\"\"\n\t\tSELECT COUNT(*) FROM script_execution_logs\n\t\t\"\"\"\n\ttotal_count \u003d system.db.runScalarQuery(query)\n\tformatted_count \u003d \"{:,}\".format(total_count)\n\treturn formatted_count + \u0027 total rows in exec logs\u0027\n\t\n",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "fontSize": 12,
+                "fontWeight": "bold",
+                "paddingLeft": 20,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Query Limit"
+        },
+        "position": {
+          "basis": "2em",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": 2,
+            "marginTop": 2
           }
         },
         "type": "ia.container.flex"

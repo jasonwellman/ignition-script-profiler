@@ -35,7 +35,7 @@
                 "onActionPerformed": {
                   "config": {
                     "draggable": false,
-                    "id": "ScriptProfilerFilterPopup",
+                    "id": "ScriptProfiler_Popup_Settings",
                     "modal": true,
                     "overlayDismiss": true,
                     "position": {
@@ -45,7 +45,7 @@
                     "resizable": false,
                     "showCloseIcon": false,
                     "type": "toggle",
-                    "viewPath": "ScriptProfiler/Components/Filters",
+                    "viewPath": "ScriptProfiler/Components/Settings",
                     "viewportBound": true
                   },
                   "scope": "C",
@@ -54,12 +54,12 @@
               }
             },
             "meta": {
-              "name": "Filter",
+              "name": "Settings",
               "tooltip": {
                 "delay": 0,
                 "enabled": true,
                 "location": "bottom-right",
-                "text": "Set the session filtering"
+                "text": "Session Filters"
               }
             },
             "position": {
@@ -69,7 +69,7 @@
             "props": {
               "image": {
                 "icon": {
-                  "path": "material/filter_alt"
+                  "path": "material/settings"
                 }
               },
               "style": {

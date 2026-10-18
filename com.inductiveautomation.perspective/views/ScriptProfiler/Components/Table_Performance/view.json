@@ -1,6 +1,23 @@
 {
-  "custom": {},
+  "custom": {
+    "number_of_logs": 0,
+    "query_limit": 10000
+  },
   "params": {},
+  "propConfig": {
+    "custom.number_of_logs": {
+      "persistent": true
+    },
+    "custom.query_limit": {
+      "binding": {
+        "config": {
+          "path": "session.custom.scriptProfiler.querySettings.limit"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
   "props": {
     "defaultSize": {
       "width": 1200
@@ -8,6 +25,95 @@
   },
   "root": {
     "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label_Total",
+                  "tooltip": {
+                    "delay": 0,
+                    "location": "bottom-left",
+                    "text": "Query limit reach. Please adjust your filters or increase the limit in the settings."
+                  }
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "custom.log_limit_reached": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.number_of_logs}\u003e\u003d{view.custom.query_limit}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "meta.tooltip.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.log_limit_reached"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({this.custom.log_limit_reached},\r\n\t\"--error\",\r\n\t\"\"\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": " \"TOTAL LOGS: \" + {view.custom.number_of_logs}"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "fontSize": "1.2em",
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer_Info"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "overflow": "visible"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer_Header"
+        },
+        "position": {
+          "basis": "50px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "padding": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
       {
         "meta": {
           "name": "Table"
@@ -92,12 +198,19 @@
                   "comment_filter": "{session.custom.scriptProfiler.queryPayload.commentFilter}",
                   "date_end": "{session.custom.scriptProfiler.filters.dateEnd}",
                   "date_start": "{session.custom.scriptProfiler.filters.dateStart}",
+                  "limit": "{session.custom.scriptProfiler.querySettings.limit}",
                   "script_name": "{session.custom.scriptProfiler.queryPayload.scriptName}",
                   "script_type": "{session.custom.scriptProfiler.queryPayload.scriptType}"
                 },
                 "queryPath": "scriptProfiler/getPerformanceSummary"
               },
               "overlayOptOut": true,
+              "transforms": [
+                {
+                  "code": "\n\tpy_ds \u003d system.dataset.toPyDataSet(value)\n\ttotal_sum \u003d sum(row[\u0027total_executions\u0027] for row in py_ds)\n\tself.view.custom.number_of_logs \u003d total_sum\n\treturn value",
+                  "type": "script"
+                }
+              ],
               "type": "query"
             }
           }
@@ -940,6 +1053,17 @@
         "type": "ia.display.table"
       }
     ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\tself.view.custom.number_of_logs \u003d 0"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
     "meta": {
       "name": "root"
     },

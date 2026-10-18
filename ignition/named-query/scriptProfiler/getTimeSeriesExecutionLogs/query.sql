@@ -1,4 +1,6 @@
-SELECT 
+DECLARE @row_limit INT = :limit;
+
+SELECT TOP (@row_limit)
     started_at AS t_stamp,
     script_name,
     duration_ms
@@ -13,4 +15,4 @@ WHERE (NULLIF(:date_start, '') IS NULL OR started_at >= :date_start)
         NULLIF(:script_type, '') IS NULL 
         OR script_type IN (SELECT value FROM STRING_SPLIT(:script_type, ','))
       )
-ORDER BY started_at ASC
+ORDER BY started_at DESC

@@ -1,6 +1,33 @@
 {
-  "custom": {},
+  "custom": {
+    "number_of_logs": 0,
+    "query_auto_update": false,
+    "query_limit": 10000
+  },
   "params": {},
+  "propConfig": {
+    "custom.number_of_logs": {
+      "binding": {
+        "config": {
+          "expression": "if(isGood({/root/TimeSeriesChart.props.series[0].data}),\r\n\tlen({/root/TimeSeriesChart.props.series[0].data}),\r\n\t0\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.query_auto_update": {
+      "persistent": true
+    },
+    "custom.query_limit": {
+      "binding": {
+        "config": {
+          "path": "session.custom.scriptProfiler.querySettings.limit"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
   "props": {
     "defaultSize": {
       "width": 1200
@@ -14,17 +41,45 @@
             "children": [
               {
                 "meta": {
-                  "name": "Label_Total"
+                  "name": "Label_Total",
+                  "tooltip": {
+                    "delay": 0,
+                    "location": "bottom-left",
+                    "text": "Query limit reach. Please adjust your filters or increase the limit in the settings."
+                  }
                 },
                 "position": {
-                  "basis": "32px",
-                  "grow": 1
+                  "shrink": 0
                 },
                 "propConfig": {
+                  "custom.log_limit_reached": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.number_of_logs}\u003e\u003d{view.custom.query_limit}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "meta.tooltip.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.log_limit_reached"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({this.custom.log_limit_reached},\r\n\t\"--error\",\r\n\t\"\"\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": " \"TOTAL LOGS: \" + {..../TimeSeriesChart.custom.number_of_logs}"
+                        "expression": " \"TOTAL LOGS: \" + {view.custom.number_of_logs}"
                       },
                       "overlayOptOut": true,
                       "type": "expr"
@@ -41,7 +96,7 @@
               },
               {
                 "custom": {
-                  "time_calculation": 0.7
+                  "time_calculation": 999997320.5
                 },
                 "meta": {
                   "name": "Label_Updating"
@@ -54,7 +109,7 @@
                   "custom.time_calculation": {
                     "binding": {
                       "config": {
-                        "expression": "round(millisBetween(now(100),addSeconds({..../TimeSeriesChart.custom.query_last_execution},{..../TimeSeriesChart.custom.query_polling}))/1000,1)"
+                        "expression": "round(millisBetween(now(150),addSeconds({..../TimeSeriesChart.custom.query_last_execution},{..../TimeSeriesChart.custom.query_polling}))/1000,1)"
                       },
                       "overlayOptOut": true,
                       "type": "expr"
@@ -64,7 +119,7 @@
                   "props.text": {
                     "binding": {
                       "config": {
-                        "expression": "if({.../Auto_Update.custom.auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
+                        "expression": "if({view.custom.query_auto_update}\u003dtrue,\r\n\tif({this.custom.time_calculation}\u003e\u003d0,\r\n\t\t\u0027Updating in \u0027 + {this.custom.time_calculation} + \u0027 seconds\u0027,\r\n\t\t\u0027Updating now...\u0027),\t\t\r\n\t\u0027Auto Update Disabled\u0027\r\n)"
                       },
                       "type": "expr"
                     },
@@ -75,7 +130,7 @@
                   "style": {
                     "fontSize": "0.75em"
                   },
-                  "text": "Updating in 0.7 seconds"
+                  "text": "Auto Update Disabled"
                 },
                 "type": "ia.display.label"
               }
@@ -87,19 +142,19 @@
               "grow": 1
             },
             "props": {
-              "direction": "column"
+              "direction": "column",
+              "style": {
+                "overflow": "visible"
+              }
             },
             "type": "ia.container.flex"
           },
           {
-            "custom": {
-              "auto_update": true
-            },
             "events": {
               "component": {
                 "onActionPerformed": {
                   "config": {
-                    "script": "\tself.custom.auto_update \u003d not self.custom.auto_update"
+                    "script": "\tself.view.custom.query_auto_update \u003d not self.view.custom.query_auto_update"
                   },
                   "scope": "G",
                   "type": "script"
@@ -123,7 +178,7 @@
               "props.primary": {
                 "binding": {
                   "config": {
-                    "path": "this.custom.auto_update"
+                    "path": "view.custom.query_auto_update"
                   },
                   "type": "property"
                 }
@@ -131,7 +186,7 @@
               "props.style.backgroundColor": {
                 "binding": {
                   "config": {
-                    "path": "this.custom.auto_update"
+                    "path": "view.custom.query_auto_update"
                   },
                   "transforms": [
                     {
@@ -175,6 +230,7 @@
         },
         "props": {
           "style": {
+            "overflow": "visible",
             "padding": 5
           }
         },
@@ -182,16 +238,15 @@
       },
       {
         "custom": {
-          "number_of_logs": 0,
           "query_last_execution": {
             "$": [
               "ts",
               192,
-              1791942557383
+              1792333960425
             ],
-            "$ts": 1791942557383
+            "$ts": 1792333960425
           },
-          "query_polling": 1
+          "query_polling": 999999999
         },
         "meta": {
           "name": "TimeSeriesChart"
@@ -200,15 +255,6 @@
           "grow": 1
         },
         "propConfig": {
-          "custom.number_of_logs": {
-            "binding": {
-              "config": {
-                "expression": "if(isGood({this.props.series[0].data}),\r\n\tlen({this.props.series[0].data}),\r\n\t0\r\n)"
-              },
-              "type": "expr"
-            },
-            "persistent": true
-          },
           "custom.query_polling": {
             "binding": {
               "config": {
@@ -243,6 +289,10 @@
                   ],
                   "outputType": "scalar",
                   "type": "map"
+                },
+                {
+                  "expression": "if({view.custom.query_auto_update},{value},999999999)",
+                  "type": "expression"
                 }
               ],
               "type": "expr"
@@ -256,6 +306,7 @@
                 "parameters": {
                   "date_end": "{session.custom.scriptProfiler.filters.dateEnd}",
                   "date_start": "{session.custom.scriptProfiler.filters.dateStart}",
+                  "limit": "{view.custom.query_limit}",
                   "script_name": "{session.custom.scriptProfiler.queryPayload.scriptName}",
                   "script_type": "{session.custom.scriptProfiler.queryPayload.scriptType}"
                 },
@@ -268,7 +319,7 @@
               },
               "transforms": [
                 {
-                  "code": "\t\n\tdef update_query_last_execution():\n\t\tself.custom.query_last_execution \u003d system.date.now()\n\t\n\tif value is None or value.rowCount \u003d\u003d 0:\n\t\tupdate_query_last_execution()\n\t\treturn value\n\t\n\tpy_data \u003d system.dataset.toPyDataSet(value)\n\t\n\t# Extract unique script names dynamically\n\tunique_scripts \u003d sorted(list(set(row[\"script_name\"] for row in py_data)))\n\theaders \u003d [\"t_stamp\"] + unique_scripts\n\t\n\t# Build pivoted rows with nulls for inactive series on each timestamp\n\trows \u003d []\n\tfor row in py_data:\n\t\tt_stamp \u003d row[\"t_stamp\"]\n\t\ts_name \u003d row[\"script_name\"]\n\t\tduration \u003d row[\"duration_ms\"]\n\t\t\n\t\tnew_row \u003d [t_stamp] + [duration if name \u003d\u003d s_name else None for name in unique_scripts]\n\t\trows.append(new_row)\n\t\t\n\tupdate_query_last_execution()\n\treturn system.dataset.toDataSet(headers, rows)",
+                  "code": "\t\n\tdef update_query_last_execution():\n\t\tself.custom.query_last_execution \u003d system.date.now()\n\t\n\tif value is None or value.rowCount \u003d\u003d 0:\n\t\tupdate_query_last_execution()\n\t\treturn value\n\t\n\tdataset \u003d system.dataset.sort(value, \u0027t_stamp\u0027, True)\n\tpy_data \u003d system.dataset.toPyDataSet(dataset)\n\t\n\t# Extract unique script names dynamically\n\tunique_scripts \u003d sorted(list(set(row[\"script_name\"] for row in py_data)))\n\theaders \u003d [\"t_stamp\"] + unique_scripts\n\t# Build pivoted rows with nulls for inactive series on each timestamp\n\trows \u003d []\n\tfor row in py_data:\n\t\tt_stamp \u003d row[\"t_stamp\"]\n\t\ts_name \u003d row[\"script_name\"]\n\t\tduration \u003d row[\"duration_ms\"]\n\t\t\n\t\tnew_row \u003d [t_stamp] + [duration if name \u003d\u003d s_name else None for name in unique_scripts]\n\t\trows.append(new_row)\n\t\t\n\tupdate_query_last_execution()\n\treturn system.dataset.toDataSet(headers, rows)",
                   "type": "script"
                 }
               ],
@@ -376,6 +427,17 @@
         "type": "ia.chart.timeseries"
       }
     ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\tself.view.custom.number_of_logs \u003d 0"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
     "meta": {
       "name": "root"
     },

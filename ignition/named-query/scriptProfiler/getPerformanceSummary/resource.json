@@ -16,9 +16,9 @@
     "enabled": true,
     "cacheAmount": 1,
     "cacheEnabled": false,
-    "database": "",
+    "database": "default",
     "fallbackEnabled": false,
-    "lastModificationSignature": "5ed2a2a805a29dfd69bac52862f93941d3788d30cff864f818fa514873d0b9b9",
+    "lastModificationSignature": "f5b1c89d0dbdcf3a58f8b3c1fba1d0626c5de8efff941f57969ea415e9c5945d",
     "permissions": [
       {
         "zone": "",
@@ -27,7 +27,7 @@
     ],
     "lastModification": {
       "actor": "jasonw",
-      "timestamp": "2026-08-27T02:01:37Z"
+      "timestamp": "2026-10-18T14:56:32Z"
     },
     "parameters": [
       {
@@ -54,6 +54,11 @@
         "type": "Parameter",
         "identifier": "comment_filter",
         "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "limit",
+        "sqlType": 2
       }
     ]
   }
