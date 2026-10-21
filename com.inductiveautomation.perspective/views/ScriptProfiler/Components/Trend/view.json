@@ -1,8 +1,8 @@
 {
   "custom": {
-    "number_of_logs": 0,
+    "number_of_logs": 5000,
     "query_auto_update": false,
-    "query_limit": 10000
+    "query_limit": 5000
   },
   "params": {},
   "propConfig": {
@@ -96,7 +96,7 @@
               },
               {
                 "custom": {
-                  "time_calculation": 999997320.5
+                  "time_calculation": 999999993
                 },
                 "meta": {
                   "name": "Label_Updating"
@@ -242,9 +242,9 @@
             "$": [
               "ts",
               192,
-              1792333960425
+              1792541665686
             ],
-            "$ts": 1792333960425
+            "$ts": 1792541665686
           },
           "query_polling": 999999999
         },

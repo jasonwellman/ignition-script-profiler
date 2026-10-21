@@ -1,7 +1,7 @@
 {
   "custom": {
-    "number_of_logs": 0,
-    "query_limit": 10000
+    "number_of_logs": 5000,
+    "query_limit": 5000
   },
   "params": {},
   "propConfig": {

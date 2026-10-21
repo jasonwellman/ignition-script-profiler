@@ -218,7 +218,7 @@
               }
             },
             "props": {
-              "formattedValue": "Jan 1, 2020 9:27 PM",
+              "formattedValue": "Jan 1, 2020 12:00 AM",
               "formattedValues": {
                 "date": "Sep 11, 2020",
                 "datetime": "Sep 11, 2020 12:29 PM",
@@ -349,7 +349,7 @@
               }
             },
             "props": {
-              "formattedValue": "Jan 1, 2030 7:10 AM",
+              "formattedValue": "Jan 1, 2030 12:00 AM",
               "formattedValues": {
                 "date": "Sep 11, 2020",
                 "datetime": "Sep 11, 2020 12:29 PM",

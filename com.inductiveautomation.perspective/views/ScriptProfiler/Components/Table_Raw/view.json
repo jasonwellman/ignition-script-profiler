@@ -1,8 +1,8 @@
 {
   "custom": {
-    "number_of_logs": 0,
+    "number_of_logs": 5000,
     "query_auto_update": "True",
-    "query_limit": 10000
+    "query_limit": 5000
   },
   "params": {},
   "propConfig": {
@@ -386,14 +386,13 @@
               }
             },
             "props": {
-              "enabled": false,
               "image": {
                 "icon": {
                   "path": "material/delete"
                 }
               },
               "style": {
-                "backgroundColor": "--callToAction--disabled",
+                "backgroundColor": "--qual-5",
                 "fontSize": "1.2em",
                 "marginLeft": 5
               },
@@ -422,9 +421,9 @@
             "$": [
               "ts",
               192,
-              1792334747448
+              1792541665729
             ],
-            "$ts": 1792334747448
+            "$ts": 1792541665729
           },
           "query_polling": 999999999,
           "table_filtering_active": false

@@ -7,24 +7,24 @@
           "$": [
             "ts",
             0,
-            1792321840095
+            1792541582939
           ],
-          "$ts": 1893499833000
+          "$ts": 1893474033000
         },
         "dateStart": {
           "$": [
             "ts",
             0,
-            1792321832072
+            1792541573808
           ],
-          "$ts": 1577932033000
+          "$ts": 1577854833000
         },
         "scriptName": null,
         "scriptType": null
       },
       "queryPayload": {},
       "querySettings": {
-        "limit": 10000
+        "limit": 5000
       },
       "ui": {
         "activeTab": "dashboard",
@@ -137,7 +137,7 @@
     }
   },
   "props": {
-    "address": "[0:0:0:0:0:0:0:1]",
+    "address": "127.0.0.1",
     "device": {},
     "geolocation": {},
     "locale": "en-US",
